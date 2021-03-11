@@ -4,9 +4,6 @@
 
 std::string decryptCaesar(std::string cipherText, int shift){
     for(int i = 0; i < cipherText.length(); i++){
-        // error here with the reverse loop back EX: for H - 10 
-        // you probably have to change shift here
-        // you shouldn't change the input string (not a good practice) make a result string 
         cipherText[i] = shifting(cipherText[i], - shift);        
     }
     return cipherText;
@@ -14,9 +11,15 @@ std::string decryptCaesar(std::string cipherText, int shift){
 
 std::string decryptVigenere(std::string cipherText, std::string keyWord){
     int counter = 0;
+    char keyLetter;
     for(int i = 0; i < cipherText.length(); i++){
         if(isalpha(cipherText[i])){
-            cipherText[i] = shifting(cipherText[i], -((int)keyWord[counter % (keyWord.length())] - 97));   
+            keyLetter = (int)keyWord[counter % (keyWord.length())];
+            if(keyLetter < 91){
+                cipherText[i] = shifting(cipherText[i], -(keyLetter - 65));
+            }else{
+                cipherText[i] = shifting(cipherText[i], -(keyLetter - 97));
+            }   
             counter += 1;
         }      
     }

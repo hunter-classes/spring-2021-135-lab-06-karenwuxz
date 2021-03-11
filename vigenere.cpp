@@ -3,11 +3,16 @@
 #include "caesar.h"
 
 std::string vigenereCipher(std::string input, std::string keyWord){
-    // all i have to figure out is the amount of shifts i have to do for the keyWord
     int counter = 0;
+    char keyLetter;
     for(int i = 0; i < input.length(); i++){
         if(isalpha(input[i])){
-            input[i] = shifting(input[i] , (int)keyWord[counter % (keyWord.length())] - 97);
+            keyLetter = (int)keyWord[counter % (keyWord.length())];
+            if(keyLetter < 91){
+                input[i] = shifting(input[i] , keyLetter - 65);
+            }else{
+                input[i] = shifting(input[i] , keyLetter - 97);
+            }
             counter += 1;
         }
     }
